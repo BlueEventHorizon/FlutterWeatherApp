@@ -5,28 +5,21 @@ class WeatherScreenButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          const SizedBox(height: 80),
-          Row(
-            children: [
-              Expanded(
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text('Close'),
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text('Reload'),
-                ),
-              ),
-            ],
+    return Row(
+      children: [
+        Expanded(
+          child: TextButton(
+            onPressed: () {},
+            child: const Text('Close'),
           ),
-        ],
-      ),
+        ),
+        Expanded(
+          child: TextButton(
+            onPressed: () {},
+            child: const Text('Reload'),
+          ),
+        ),
+      ],
     );
   }
 }

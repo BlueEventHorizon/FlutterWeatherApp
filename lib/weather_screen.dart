@@ -21,7 +21,14 @@ class WeatherScreen extends StatelessWidget {
               SizedBox(height: 16),
               WeatherScreenTemperature(),
               SizedBox(height: 16),
-              WeatherScreenButtons(),
+              Expanded(
+                child: Column(
+                  children: [
+                    SizedBox(height: 80),
+                    WeatherScreenButtons(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -15,7 +15,7 @@ class WeatherScreenTemperature extends StatelessWidget {
             textAlign: TextAlign.center,
             style: labelLarge?.copyWith(
               color: Colors.blue,
-            ), // TextStyle(color: Colors.blue),
+            ),
           ),
         ),
         Expanded(
