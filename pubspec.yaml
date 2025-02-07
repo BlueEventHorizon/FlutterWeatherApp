@@ -17,6 +17,7 @@ dependencies:
       path: packages/yumemi_weather
 
 dev_dependencies:
+  flutter_svg: ^2.0.17
   flutter_test:
     sdk: flutter
   yumemi_lints: ^3.0.0
