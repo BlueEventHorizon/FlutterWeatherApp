@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/data/weather_api.dart';
+import 'package:flutter_training/screen/weather_icon.dart';
 import 'package:flutter_training/screen/weather_screen_buttons.dart';
 import 'package:flutter_training/screen/weather_screen_temperature.dart';
 
@@ -23,10 +24,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           child: Column(
             children: [
               const Spacer(),
-              const AspectRatio(
-                aspectRatio: 1,
-                child: Placeholder(),
-              ),
+              WeatherIcon(condition: _weatherCondition),
               const SizedBox(height: 16),
               const WeatherScreenTemperature(),
               const SizedBox(height: 16),
@@ -36,7 +34,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     const SizedBox(height: 80),
                     WeatherScreenButtons(
                       reload: () {
-                        _weatherCondition = _api.fetchWeatherCondition();
+                        setState(() {
+                          _weatherCondition = _api.fetchWeatherCondition();
+                        });
                       },
                     ),
                   ],
