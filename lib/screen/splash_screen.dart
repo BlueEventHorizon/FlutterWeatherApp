@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _navigateToNextScreen() async {
     await SchedulerBinding.instance.endOfFrame;
-    await Future.delayed(Duration(microseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     if (mounted) {
       await Navigator.push(
         context,
@@ -38,7 +38,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Colors.green,
-      body: SizedBox.expand(),
     );
   }
 }
