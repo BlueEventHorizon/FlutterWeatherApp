@@ -33,6 +33,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   children: [
                     const SizedBox(height: 80),
                     WeatherScreenButtons(
+                      close: () {
+                        Navigator.pop(context);
+                      },
                       reload: () {
                         setState(() {
                           _weatherCondition = _api.fetchWeatherCondition();

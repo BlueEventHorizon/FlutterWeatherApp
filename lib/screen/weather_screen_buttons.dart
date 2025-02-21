@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class WeatherScreenButtons extends StatelessWidget {
-  const WeatherScreenButtons({required void Function() reload, super.key})
-      : _reload = reload;
+  const WeatherScreenButtons({
+    required void Function() close,
+    required void Function() reload,
+    super.key,
+  })  : _close = close,
+        _reload = reload;
 
+  final void Function() _close;
   final void Function() _reload;
 
   @override
@@ -12,7 +17,7 @@ class WeatherScreenButtons extends StatelessWidget {
       children: [
         Expanded(
           child: TextButton(
-            onPressed: () {},
+            onPressed: _close,
             child: const Text('Close'),
           ),
         ),
