@@ -1,6 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter_training/screen/mixin/after_layout_mixin.dart';
 import 'package:flutter_training/screen/weather_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,16 +9,20 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with AfterLayoutMixin {
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      backgroundColor: Colors.green,
+    );
+  }
 
-    unawaited(_navigateToWeatherScreen());
+  @override
+  Future<void> actionAfterLayout() async {
+    await _navigateToWeatherScreen();
   }
 
   Future<void> _navigateToWeatherScreen() async {
-    await SchedulerBinding.instance.endOfFrame;
     await Future<void>.delayed(const Duration(milliseconds: 500));
     if (mounted) {
       await Navigator.push(
@@ -30,14 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
           },
         ),
       );
-      unawaited(_navigateToWeatherScreen());
-    }
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.green,
-    );
+      await _navigateToWeatherScreen();
+    }
   }
 }
