@@ -5,7 +5,7 @@ class WeatherAPI {
 
   String fetchWeatherCondition() {
     try {
-      return yumemiWeather.fetchThrowsWeather('tokyo');
+      return yumemiWeather.fetchWeather('tokyo');
     } on YumemiWeatherError catch (error) {
       switch (error) {
         case YumemiWeatherError.invalidParameter:

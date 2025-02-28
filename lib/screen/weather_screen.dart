@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_training/data/weather_api.dart';
 import 'package:flutter_training/screen/weather_icon.dart';
 import 'package:flutter_training/screen/weather_screen_buttons.dart';
 import 'package:flutter_training/screen/weather_screen_temperature.dart';
+import 'dart:convert';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -16,6 +18,8 @@ class WeatherScreen extends StatefulWidget {
 class _WeatherScreenState extends State<WeatherScreen> {
   final _api = WeatherAPI();
   String? _weatherCondition;
+  int? _max_temperature;
+  int? _min_temperature;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,19 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       reload: () {
                         try {
                           setState(() {
-                            _weatherCondition = _api.fetchWeatherCondition();
+                            final json = _api.fetchWeatherCondition();
+
+                            final weatherInfo =
+                                jsonDecode(json) as Map<String, dynamic>;
+
+                            _weatherCondition =
+                                weatherInfo['weather_condition'].toString();
+                            _max_temperature = int.parse(
+                              weatherInfo['max_temperature'].toString(),
+                            );
+                            _min_temperature = int.parse(
+                              weatherInfo['min_temperature'].toString(),
+                            );
                           });
                         } on WeatherAPIError catch (error) {
                           unawaited(_showErrorDialog(error.message));
