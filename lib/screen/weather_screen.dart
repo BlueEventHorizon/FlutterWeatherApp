@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_training/data/weather_api.dart';
 import 'package:flutter_training/screen/weather_icon.dart';
@@ -37,9 +39,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         Navigator.pop(context);
                       },
                       reload: () {
-                        setState(() {
-                          _weatherCondition = _api.fetchWeatherCondition();
-                        });
+                        try {
+                          setState(() {
+                            _weatherCondition = _api.fetchWeatherCondition();
+                          });
+                        } on WeatherAPIError catch (error) {
+                          unawaited(_showErrorDialog(error.message));
+                        }
                       },
                     ),
                   ],
@@ -49,6 +55,26 @@ class _WeatherScreenState extends State<WeatherScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showErrorDialog(String message) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (context) {
+        return AlertDialog(
+          title: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
