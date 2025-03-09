@@ -39,13 +39,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                         Navigator.pop(context);
                       },
                       reload: () {
-                        setState(() {
-                          try {
+                        try {
+                          setState(() {
                             _weatherCondition = _api.fetchWeatherCondition();
-                          } on WeatherAPIError catch (error) {
-                            unawaited(_showErrorDialog(error.message));
-                          }
-                        });
+                          });
+                        } on WeatherAPIError catch (error) {
+                          unawaited(_showErrorDialog(error.message));
+                        }
                       },
                     ),
                   ],
@@ -67,7 +67,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           title: Text(message),
           actions: <Widget>[
             TextButton(
-              child: const Text('Ok'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
