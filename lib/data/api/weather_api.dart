@@ -4,7 +4,7 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 class WeatherAPI {
   final yumemiWeather = YumemiWeather();
 
-  String fetchWeatherCondition({String area = 'tokyo', DateTime? dateTime}) {
+  String fetchWeatherInfo({String area = 'tokyo', DateTime? dateTime}) {
     final dateTimeLocal = dateTime ?? DateTime.now();
 
     final request = jsonEncode(toJson((area: area, dateTime: dateTimeLocal)));
