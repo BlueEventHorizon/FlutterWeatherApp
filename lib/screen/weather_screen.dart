@@ -18,8 +18,8 @@ class WeatherScreen extends StatefulWidget {
 class _WeatherScreenState extends State<WeatherScreen> {
   final _api = WeatherAPI();
   String? _weatherCondition;
-  int? _max_temperature;
-  int? _min_temperature;
+  int? _maxTemperature;
+  int? _minTemperature;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
               const Spacer(),
               WeatherIcon(condition: _weatherCondition),
               const SizedBox(height: 16),
-              const WeatherScreenTemperature(),
+              WeatherScreenTemperature(
+                maxTemperature: _maxTemperature,
+                minTemperature: _minTemperature,
+              ),
               const SizedBox(height: 16),
               Expanded(
                 child: Column(
@@ -52,10 +55,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
                             _weatherCondition =
                                 weatherInfo['weather_condition'].toString();
-                            _max_temperature = int.parse(
+                            _maxTemperature = int.parse(
                               weatherInfo['max_temperature'].toString(),
                             );
-                            _min_temperature = int.parse(
+                            _minTemperature = int.parse(
                               weatherInfo['min_temperature'].toString(),
                             );
                           });

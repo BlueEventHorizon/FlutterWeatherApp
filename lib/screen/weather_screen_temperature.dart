@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class WeatherScreenTemperature extends StatelessWidget {
-  const WeatherScreenTemperature({super.key});
+  const WeatherScreenTemperature({
+    required int? maxTemperature,
+    required int? minTemperature,
+    super.key,
+  })  : _maxTemperature = maxTemperature,
+        _minTemperature = minTemperature;
+
+  final int? _maxTemperature;
+  final int? _minTemperature;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +19,7 @@ class WeatherScreenTemperature extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            '** ℃',
+            _minTemperature == null ? '** ℃' : '$_minTemperature ℃',
             textAlign: TextAlign.center,
             style: labelLarge?.copyWith(
               color: Colors.blue,
@@ -20,7 +28,7 @@ class WeatherScreenTemperature extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            '** ℃',
+            _maxTemperature == null ? '** ℃' : '$_maxTemperature ℃',
             textAlign: TextAlign.center,
             style: labelLarge?.copyWith(
               color: Colors.red,
