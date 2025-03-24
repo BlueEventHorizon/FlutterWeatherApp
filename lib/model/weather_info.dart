@@ -1,3 +1,8 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'weather_info.freezed.dart';
+part 'weather_info.g.dart';
+
 enum WeatherCondition {
   sunny,
   cloudy,
@@ -17,14 +22,15 @@ enum WeatherCondition {
   }
 }
 
-class WeatherInfo {
-  const WeatherInfo({
-    required this.maxTemperature,
-    required this.minTemperature,
-    required this.condition,
-  });
+@freezed
+@JsonSerializable(fieldRename: FieldRename.snake)
+abstract class WeatherInfo with _$WeatherInfo {
+  const factory WeatherInfo({
+    required int maxTemperature,
+    required int minTemperature,
+    required WeatherCondition condition,
+  }) = _WeatherInfo;
 
-  final WeatherCondition condition;
-  final int maxTemperature;
-  final int minTemperature;
+  factory WeatherInfo.fromJson(Map<String, Object?> json) =>
+      _$WeatherInfoFromJson(json);
 }
