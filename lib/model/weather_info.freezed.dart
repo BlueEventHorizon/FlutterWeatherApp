@@ -17,7 +17,7 @@ T _$identity<T>(T value) => value;
 mixin _$WeatherInfo {
   int get maxTemperature;
   int get minTemperature;
-  WeatherCondition get condition;
+  WeatherCondition get weatherCondition;
 
   /// Create a copy of WeatherInfo
   /// with the given fields replaced by the non-null parameter values.
@@ -38,18 +38,18 @@ mixin _$WeatherInfo {
                 other.maxTemperature == maxTemperature) &&
             (identical(other.minTemperature, minTemperature) ||
                 other.minTemperature == minTemperature) &&
-            (identical(other.condition, condition) ||
-                other.condition == condition));
+            (identical(other.weatherCondition, weatherCondition) ||
+                other.weatherCondition == weatherCondition));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, maxTemperature, minTemperature, condition);
+  int get hashCode => Object.hash(
+      runtimeType, maxTemperature, minTemperature, weatherCondition);
 
   @override
   String toString() {
-    return 'WeatherInfo(maxTemperature: $maxTemperature, minTemperature: $minTemperature, condition: $condition)';
+    return 'WeatherInfo(maxTemperature: $maxTemperature, minTemperature: $minTemperature, weatherCondition: $weatherCondition)';
   }
 }
 
@@ -60,7 +60,9 @@ abstract mixin class $WeatherInfoCopyWith<$Res> {
       _$WeatherInfoCopyWithImpl;
   @useResult
   $Res call(
-      {int maxTemperature, int minTemperature, WeatherCondition condition});
+      {int maxTemperature,
+      int minTemperature,
+      WeatherCondition weatherCondition});
 }
 
 /// @nodoc
@@ -77,7 +79,7 @@ class _$WeatherInfoCopyWithImpl<$Res> implements $WeatherInfoCopyWith<$Res> {
   $Res call({
     Object? maxTemperature = null,
     Object? minTemperature = null,
-    Object? condition = null,
+    Object? weatherCondition = null,
   }) {
     return _then(_self.copyWith(
       maxTemperature: null == maxTemperature
@@ -88,9 +90,9 @@ class _$WeatherInfoCopyWithImpl<$Res> implements $WeatherInfoCopyWith<$Res> {
           ? _self.minTemperature
           : minTemperature // ignore: cast_nullable_to_non_nullable
               as int,
-      condition: null == condition
-          ? _self.condition
-          : condition // ignore: cast_nullable_to_non_nullable
+      weatherCondition: null == weatherCondition
+          ? _self.weatherCondition
+          : weatherCondition // ignore: cast_nullable_to_non_nullable
               as WeatherCondition,
     ));
   }
@@ -102,7 +104,7 @@ class _WeatherInfo implements WeatherInfo {
   const _WeatherInfo(
       {required this.maxTemperature,
       required this.minTemperature,
-      required this.condition});
+      required this.weatherCondition});
   factory _WeatherInfo.fromJson(Map<String, dynamic> json) =>
       _$WeatherInfoFromJson(json);
 
@@ -111,7 +113,7 @@ class _WeatherInfo implements WeatherInfo {
   @override
   final int minTemperature;
   @override
-  final WeatherCondition condition;
+  final WeatherCondition weatherCondition;
 
   /// Create a copy of WeatherInfo
   /// with the given fields replaced by the non-null parameter values.
@@ -137,18 +139,18 @@ class _WeatherInfo implements WeatherInfo {
                 other.maxTemperature == maxTemperature) &&
             (identical(other.minTemperature, minTemperature) ||
                 other.minTemperature == minTemperature) &&
-            (identical(other.condition, condition) ||
-                other.condition == condition));
+            (identical(other.weatherCondition, weatherCondition) ||
+                other.weatherCondition == weatherCondition));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, maxTemperature, minTemperature, condition);
+  int get hashCode => Object.hash(
+      runtimeType, maxTemperature, minTemperature, weatherCondition);
 
   @override
   String toString() {
-    return 'WeatherInfo(maxTemperature: $maxTemperature, minTemperature: $minTemperature, condition: $condition)';
+    return 'WeatherInfo(maxTemperature: $maxTemperature, minTemperature: $minTemperature, weatherCondition: $weatherCondition)';
   }
 }
 
@@ -161,7 +163,9 @@ abstract mixin class _$WeatherInfoCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int maxTemperature, int minTemperature, WeatherCondition condition});
+      {int maxTemperature,
+      int minTemperature,
+      WeatherCondition weatherCondition});
 }
 
 /// @nodoc
@@ -178,7 +182,7 @@ class __$WeatherInfoCopyWithImpl<$Res> implements _$WeatherInfoCopyWith<$Res> {
   $Res call({
     Object? maxTemperature = null,
     Object? minTemperature = null,
-    Object? condition = null,
+    Object? weatherCondition = null,
   }) {
     return _then(_WeatherInfo(
       maxTemperature: null == maxTemperature
@@ -189,9 +193,9 @@ class __$WeatherInfoCopyWithImpl<$Res> implements _$WeatherInfoCopyWith<$Res> {
           ? _self.minTemperature
           : minTemperature // ignore: cast_nullable_to_non_nullable
               as int,
-      condition: null == condition
-          ? _self.condition
-          : condition // ignore: cast_nullable_to_non_nullable
+      weatherCondition: null == weatherCondition
+          ? _self.weatherCondition
+          : weatherCondition // ignore: cast_nullable_to_non_nullable
               as WeatherCondition,
     ));
   }

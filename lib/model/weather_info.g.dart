@@ -7,16 +7,18 @@ part of 'weather_info.dart';
 // **************************************************************************
 
 _WeatherInfo _$WeatherInfoFromJson(Map<String, dynamic> json) => _WeatherInfo(
-      maxTemperature: (json['maxTemperature'] as num).toInt(),
-      minTemperature: (json['minTemperature'] as num).toInt(),
-      condition: $enumDecode(_$WeatherConditionEnumMap, json['condition']),
+      maxTemperature: (json['max_temperature'] as num).toInt(),
+      minTemperature: (json['min_temperature'] as num).toInt(),
+      weatherCondition:
+          $enumDecode(_$WeatherConditionEnumMap, json['weather_condition']),
     );
 
 Map<String, dynamic> _$WeatherInfoToJson(_WeatherInfo instance) =>
     <String, dynamic>{
-      'maxTemperature': instance.maxTemperature,
-      'minTemperature': instance.minTemperature,
-      'condition': _$WeatherConditionEnumMap[instance.condition]!,
+      'max_temperature': instance.maxTemperature,
+      'min_temperature': instance.minTemperature,
+      'weather_condition':
+          _$WeatherConditionEnumMap[instance.weatherCondition]!,
     };
 
 const _$WeatherConditionEnumMap = {
