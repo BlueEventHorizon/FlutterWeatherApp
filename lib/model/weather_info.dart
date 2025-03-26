@@ -15,6 +15,9 @@ abstract class WeatherInfo with _$WeatherInfo {
     required int maxTemperature,
     required int minTemperature,
     required WeatherCondition weatherCondition,
+    // @JsonKeyによるプロパティ名の変更は下記のように記述する
+    // 警告対応の参考リンク：https://github.com/rrousselGit/freezed/issues/488
+    // @JsonKey(name: 'weather_condition') required WeatherCondition condition,
   }) = _WeatherInfo;
 
   factory WeatherInfo.fromJson(Map<String, Object?> json) =>
