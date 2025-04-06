@@ -17,8 +17,7 @@ Map<String, dynamic> _$WeatherInfoToJson(_WeatherInfo instance) =>
     <String, dynamic>{
       'max_temperature': instance.maxTemperature,
       'min_temperature': instance.minTemperature,
-      'weather_condition':
-          _$WeatherConditionEnumMap[instance.weatherCondition]!,
+      'weather_condition': _$WeatherConditionEnumMap[instance.weatherCondition],
     };
 
 const _$WeatherConditionEnumMap = {
