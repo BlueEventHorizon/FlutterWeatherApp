@@ -28,7 +28,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           child: Column(
             children: [
               const Spacer(),
-              WeatherIcon(condition: _weatherInfo?.condition),
+              WeatherIcon(condition: _weatherInfo?.weatherCondition),
               const SizedBox(height: 16),
               WeatherScreenTemperature(
                 maxTemperature: _weatherInfo?.maxTemperature,

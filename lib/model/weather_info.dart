@@ -1,30 +1,25 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'weather_info.freezed.dart';
+part 'weather_info.g.dart';
+
 enum WeatherCondition {
   sunny,
   cloudy,
   rainy;
-
-  factory WeatherCondition.fromString(String conditionString) {
-    switch (conditionString) {
-      case 'sunny':
-        return WeatherCondition.sunny;
-      case 'cloudy':
-        return WeatherCondition.cloudy;
-      case 'rainy':
-        return WeatherCondition.rainy;
-      default:
-        throw Exception('bad weather condition name $conditionString');
-    }
-  }
 }
 
-class WeatherInfo {
-  const WeatherInfo({
-    required this.maxTemperature,
-    required this.minTemperature,
-    required this.condition,
-  });
+@freezed
+abstract class WeatherInfo with _$WeatherInfo {
+  const factory WeatherInfo({
+    required int maxTemperature,
+    required int minTemperature,
+    required WeatherCondition weatherCondition,
+    // @JsonKeyによるプロパティ名の変更は下記のように記述する
+    // 警告対応の参考リンク：https://github.com/rrousselGit/freezed/issues/488
+    // @JsonKey(name: 'weather_condition') required WeatherCondition condition,
+  }) = _WeatherInfo;
 
-  final WeatherCondition condition;
-  final int maxTemperature;
-  final int minTemperature;
+  factory WeatherInfo.fromJson(Map<String, Object?> json) =>
+      _$WeatherInfoFromJson(json);
 }
