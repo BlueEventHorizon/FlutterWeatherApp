@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/data/weather_api.dart';
+import 'package:flutter_training/data/api/weather_api.dart';
+import 'package:flutter_training/data/repository/weather_repository.dart';
+import 'package:flutter_training/model/weather_info.dart';
 import 'package:flutter_training/screen/weather_icon.dart';
 import 'package:flutter_training/screen/weather_screen_buttons.dart';
 import 'package:flutter_training/screen/weather_screen_temperature.dart';
@@ -14,8 +16,8 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  final _api = WeatherAPI();
-  String? _weatherCondition;
+  final _repository = WeatherRepository();
+  WeatherInfo? _weatherInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
           child: Column(
             children: [
               const Spacer(),
-              WeatherIcon(condition: _weatherCondition),
+              WeatherIcon(condition: _weatherInfo?.condition),
               const SizedBox(height: 16),
-              const WeatherScreenTemperature(),
+              WeatherScreenTemperature(
+                maxTemperature: _weatherInfo?.maxTemperature,
+                minTemperature: _weatherInfo?.minTemperature,
+              ),
               const SizedBox(height: 16),
               Expanded(
                 child: Column(
@@ -41,7 +46,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       reload: () {
                         try {
                           setState(() {
-                            _weatherCondition = _api.fetchWeatherCondition();
+                            _weatherInfo = _repository.getWeatherInfo();
                           });
                         } on WeatherAPIError catch (error) {
                           unawaited(_showErrorDialog(error.message));
