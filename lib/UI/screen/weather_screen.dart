@@ -1,26 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/data/repository/weather_repository.dart';
-import 'package:flutter_training/domain/exception/app_exception.dart';
-import 'package:flutter_training/domain/model/weather_info.dart';
-import 'package:flutter_training/screen/weather_icon.dart';
-import 'package:flutter_training/screen/weather_screen_buttons.dart';
-import 'package:flutter_training/screen/weather_screen_temperature.dart';
 
-class WeatherScreen extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/data/api/weather_api.dart';
+import 'package:flutter_training/UI/screen/weather_icon.dart';
+import 'package:flutter_training/UI/screen/weather_screen_buttons.dart';
+import 'package:flutter_training/UI/screen/weather_screen_temperature.dart';
+
+class WeatherScreen extends ConsumerWidget {
   const WeatherScreen({super.key});
 
   @override
-  State<WeatherScreen> createState() => _WeatherScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final weatherInfo = ref.watch(weatherInfoNotifierProvider);
 
-class _WeatherScreenState extends State<WeatherScreen> {
-  final _repository = WeatherRepository();
-  WeatherInfo? _weatherInfo;
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: FractionallySizedBox(
@@ -28,11 +22,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
           child: Column(
             children: [
               const Spacer(),
-              WeatherIcon(condition: _weatherInfo?.weatherCondition),
+              WeatherIcon(condition: weatherInfo?.weatherCondition),
               const SizedBox(height: 16),
               WeatherScreenTemperature(
-                maxTemperature: _weatherInfo?.maxTemperature,
-                minTemperature: _weatherInfo?.minTemperature,
+                maxTemperature: weatherInfo?.maxTemperature,
+                minTemperature: weatherInfo?.minTemperature,
               ),
               const SizedBox(height: 16),
               Expanded(
@@ -45,11 +39,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       },
                       reload: () {
                         try {
-                          setState(() {
-                            _weatherInfo = _repository.getWeatherInfo();
-                          });
-                        } on AppException catch (error) {
-                          unawaited(_showErrorDialog(error.message));
+                          ref
+                              .read(weatherInfoNo≥tifierProvider.notifier)
+                              .fetch();
+                        } on WeatherAP≥IError catch (error) {
+                          unawaited(_showErrorDialog(context, error.message));
+                        } on WeatherRepositoryError catch (error) {
+                          unawaited(_showErrorDialog(context, error.message));
                         }
                       },
                     ),
@@ -63,7 +59,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     );
   }
 
-  Future<void> _showErrorDialog(String message) async {
+  Future<void> _showErrorDialog(BuildContext context, String message) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
