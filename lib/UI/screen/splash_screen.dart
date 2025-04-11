@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/screen/mixin/after_layout_mixin.dart';
-import 'package:flutter_training/screen/weather_screen.dart';
+import 'package:flutter_training/UI/screen/mixin/after_layout_mixin.dart';
+import 'package:flutter_training/UI/screen/weather_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
