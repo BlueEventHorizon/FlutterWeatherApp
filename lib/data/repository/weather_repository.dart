@@ -26,5 +26,5 @@ sealed class WeatherRepositoryError implements Exception {
 }
 
 class JsonFormatError extends WeatherRepositoryError {
-  const JsonFormatError({required String message}) : super(message: message);
+  const JsonFormatError({required super.message});
 }
