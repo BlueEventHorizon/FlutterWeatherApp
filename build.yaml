@@ -4,6 +4,7 @@ targets:
       json_serializable:
         options:
           field_rename: snake # デフォルトから変更
+          checked: true # fromJson 失敗時に CheckedFromJsonException を throw
       source_gen:combining_builder:
         options:
           ignore_for_file:

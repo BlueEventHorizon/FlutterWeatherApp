@@ -50,6 +50,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           });
                         } on WeatherAPIError catch (error) {
                           unawaited(_showErrorDialog(error.message));
+                        } on WeatherRepositoryError catch (error) {
+                          unawaited(_showErrorDialog(error.message));
                         }
                       },
                     ),
