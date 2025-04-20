@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/data/api/weather_api.dart';
+import 'package:flutter_training/data/repository/weather_repository.dart';
+import 'package:flutter_training/UI/provider/weather_info_notifier_provider.dart';
 import 'package:flutter_training/UI/screen/weather_icon.dart';
 import 'package:flutter_training/UI/screen/weather_screen_buttons.dart';
 import 'package:flutter_training/UI/screen/weather_screen_temperature.dart';
