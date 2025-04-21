@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_training/data/api/weather_api.dart';
-import 'package:flutter_training/model/weather_info.dart';
+import 'package:flutter_training/domain/exception/app_exception.dart';
+import 'package:flutter_training/domain/model/weather_info.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 class WeatherRepository {
@@ -14,17 +15,8 @@ class WeatherRepository {
 
     try {
       return WeatherInfo.fromJson(weatherInfo);
-    } on CheckedFromJsonException catch (e) {
-      throw JsonFormatError(message: 'JSONフォーマットエラー: ${e.message}');
+    } on CheckedFromJsonException catch (_) {
+      throw const JsonFormatError();
     }
   }
-}
-
-sealed class WeatherRepositoryError implements Exception {
-  const WeatherRepositoryError({required this.message});
-  final String message;
-}
-
-class JsonFormatError extends WeatherRepositoryError {
-  const JsonFormatError({required super.message});
 }

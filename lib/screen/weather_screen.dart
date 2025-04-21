@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/data/api/weather_api.dart';
 import 'package:flutter_training/data/repository/weather_repository.dart';
-import 'package:flutter_training/model/weather_info.dart';
+import 'package:flutter_training/domain/exception/app_exception.dart';
+import 'package:flutter_training/domain/model/weather_info.dart';
 import 'package:flutter_training/screen/weather_icon.dart';
 import 'package:flutter_training/screen/weather_screen_buttons.dart';
 import 'package:flutter_training/screen/weather_screen_temperature.dart';
@@ -48,9 +48,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           setState(() {
                             _weatherInfo = _repository.getWeatherInfo();
                           });
-                        } on WeatherAPIError catch (error) {
-                          unawaited(_showErrorDialog(error.message));
-                        } on WeatherRepositoryError catch (error) {
+                        } on AppException catch (error) {
                           unawaited(_showErrorDialog(error.message));
                         }
                       },
