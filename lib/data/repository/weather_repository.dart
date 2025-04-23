@@ -1,28 +1,22 @@
 import 'dart:convert';
 
 import 'package:flutter_training/data/api/weather_api.dart';
-import 'package:flutter_training/model/weather_info.dart';
+import 'package:flutter_training/domain/exception/app_exception.dart';
+import 'package:flutter_training/domain/model/weather_info.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 class WeatherRepository {
   final _api = WeatherAPI();
 
-  WeatherInfo getWeatherInfo() {
-    final json = _api.fetchWeatherInfo();
+  WeatherInfo getWeatherInfo({String area = 'tokyo', DateTime? dateTime}) {
+    final json = _api.fetchWeatherInfo(area: area, dateTime: dateTime);
 
     final weatherInfo = jsonDecode(json) as Map<String, dynamic>;
 
-    final condition = weatherInfo['weather_condition'].toString();
-    final maxTemperature = int.parse(
-      weatherInfo['max_temperature'].toString(),
-    );
-    final minTemperature = int.parse(
-      weatherInfo['min_temperature'].toString(),
-    );
-
-    return WeatherInfo(
-      condition: WeatherCondition.fromString(condition),
-      maxTemperature: maxTemperature,
-      minTemperature: minTemperature,
-    );
+    try {
+      return WeatherInfo.fromJson(weatherInfo);
+    } on CheckedFromJsonException catch (_) {
+      throw const JsonFormatError();
+    }
   }
 }
