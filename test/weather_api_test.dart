@@ -30,12 +30,35 @@ void main() {
     expect(api.fetchWeatherInfo(), 'cloudy');
   });
 
-  // TODO: Providerを使ってコード修正する（Unknownも）
   test('this is unexpected test', () {
     final mock = MockYumemiWeather();
-    final api = WeatherAPI(yumemiWeather: mock);
+    final container = createContainer(
+      overrides: [
+        yumemiWeatherProvider.overrideWith((ref) {
+          return mock;
+        }),
+      ],
+    );
+
+    final api = container.read(weatherAPIProvider);
 
     when(mock.fetchWeather(any)).thenThrow(YumemiWeatherError.invalidParameter);
     expect(api.fetchWeatherInfo, throwsA(isA<InvalidParameter>()));
+  });
+
+  test('this is Unknown test', () {
+    final mock = MockYumemiWeather();
+    final container = createContainer(
+      overrides: [
+        yumemiWeatherProvider.overrideWith((ref) {
+          return mock;
+        }),
+      ],
+    );
+
+    final api = container.read(weatherAPIProvider);
+
+    when(mock.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
+    expect(api.fetchWeatherInfo, throwsA(isA<Unknown>()));
   });
 }
