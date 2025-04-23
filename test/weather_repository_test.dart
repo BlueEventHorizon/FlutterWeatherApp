@@ -13,8 +13,14 @@ void main() {
     final mock = MockWeatherAPI();
     final api = WeatherRepository(weatherAPI: mock);
 
-    const response =
-        '{"weather_condition":"cloudy","max_temperature":25,"min_temperature":7,"date":"2020-04-01T12:00:00+09:00"}';
+    const response = '''
+    {
+      "weather_condition": "cloudy",
+      "max_temperature": 25,
+      "min_temperature": 7,
+      "date": "2020-04-01T12:00:00+09:00"
+    }
+    ''';
 
     when(mock.fetchWeatherInfo()).thenReturn(response);
     expect(

@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/data/api/provider/yumemi_weather_provider.dart';
 import 'package:flutter_training/domain/exception/app_exception.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
@@ -18,7 +18,7 @@ class WeatherAPI {
     required YumemiWeather yumemiWeather,
   }) : _yumemiWeather = yumemiWeather;
 
-  YumemiWeather _yumemiWeather;
+  final YumemiWeather _yumemiWeather;
 
   String fetchWeatherInfo({String area = 'tokyo', DateTime? dateTime}) {
     final dateTimeLocal = dateTime ?? DateTime.now();
