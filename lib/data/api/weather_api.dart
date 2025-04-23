@@ -1,9 +1,24 @@
 import 'dart:convert';
+import 'package:flutter_training/data/api/provider/yumemi_weather_provider.dart';
 import 'package:flutter_training/domain/exception/app_exception.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
+part 'weather_api.g.dart';
+
+@riverpod
+WeatherAPI weatherAPI(Ref ref) {
+  final yumemiWeather = ref.watch(yumemiWeatherProvider);
+  return WeatherAPI(yumemiWeather: yumemiWeather);
+}
+
 class WeatherAPI {
-  final yumemiWeather = YumemiWeather();
+  WeatherAPI({
+    required YumemiWeather yumemiWeather,
+  }) : _yumemiWeather = yumemiWeather;
+
+  YumemiWeather _yumemiWeather;
 
   String fetchWeatherInfo({String area = 'tokyo', DateTime? dateTime}) {
     final dateTimeLocal = dateTime ?? DateTime.now();
@@ -11,7 +26,7 @@ class WeatherAPI {
     final request = jsonEncode(toJson((area: area, dateTime: dateTimeLocal)));
 
     try {
-      return yumemiWeather.fetchWeather(request);
+      return _yumemiWeather.fetchWeather(request);
     } on YumemiWeatherError catch (error) {
       switch (error) {
         case YumemiWeatherError.invalidParameter:
