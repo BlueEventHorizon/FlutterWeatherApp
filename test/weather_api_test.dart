@@ -1,0 +1,40 @@
+// Import the test package and Counter class
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_training/data/api/provider/yumemi_weather_provider.dart';
+import 'package:flutter_training/data/api/weather_api.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:yumemi_weather/yumemi_weather.dart';
+
+import 'helper/create_container.dart';
+@GenerateNiceMocks([MockSpec<YumemiWeather>()])
+import 'weather_api_test.mocks.dart';
+
+void main() {
+  test('this is test', () {
+    final mock = MockYumemiWeather();
+
+    final container = createContainer(
+      overrides: [
+        yumemiWeatherProvider.overrideWith((ref) {
+          return mock;
+        }),
+      ],
+    );
+
+    final api = container.read(weatherAPIProvider);
+
+    when(mock.fetchWeather(any)).thenReturn('cloudy');
+    expect(api.fetchWeatherInfo(), 'cloudy');
+  });
+
+  // TODO: Providerを使ってコード修正する（Unknownも）
+  test('this is unexpected test', () {
+    final mock = MockYumemiWeather();
+    final api = WeatherAPI(yumemiWeather: mock);
+
+    when(mock.fetchWeather(any)).thenThrow(YumemiWeatherError.invalidParameter);
+    expect(api.fetchWeatherInfo, throwsA(isA<InvalidParameter>()));
+  });
+}
