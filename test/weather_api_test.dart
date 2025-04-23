@@ -3,6 +3,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/data/api/provider/yumemi_weather_provider.dart';
 import 'package:flutter_training/data/api/weather_api.dart';
+import 'package:flutter_training/domain/exception/app_exception.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
