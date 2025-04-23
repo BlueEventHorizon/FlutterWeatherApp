@@ -20,7 +20,7 @@ class WeatherRepository {
     required WeatherAPI weatherAPI,
   }) : _weatherAPI = weatherAPI;
 
-  WeatherAPI _weatherAPI;
+  final WeatherAPI _weatherAPI;
 
   WeatherInfo getWeatherInfo({String area = 'tokyo', DateTime? dateTime}) {
     final json = _weatherAPI.fetchWeatherInfo(area: area, dateTime: dateTime);
