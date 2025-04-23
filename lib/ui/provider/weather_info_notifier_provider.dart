@@ -7,7 +7,7 @@ part 'weather_info_notifier_provider.g.dart';
 
 @riverpod
 class WeatherInfoNotifier extends _$WeatherInfoNotifier {
-  final repository = WeatherRepository();
+  final _repository = WeatherRepository();
 
   @override
   WeatherInfo? build() {
@@ -15,7 +15,7 @@ class WeatherInfoNotifier extends _$WeatherInfoNotifier {
   }
 
   void fetch({String area = 'tokyo', DateTime? dateTime}) {
-    state = repository.getWeatherInfo(
+    state = _repository.getWeatherInfo(
       area: area,
       dateTime: dateTime,
     );
