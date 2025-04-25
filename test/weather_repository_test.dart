@@ -44,7 +44,9 @@ void main() {
     );
   });
 
-  test('this is InvalidParameter test', () {
+  test('''
+        Weather APiがInvalidParameterをスローする時、WeatherRepositoryは、InvalidParameterをスローする
+    ''', () {
     final mock = MockWeatherAPI();
 
     final container = createContainer(
