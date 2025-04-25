@@ -11,6 +11,8 @@ class WeatherScreenButtons extends StatelessWidget {
   final void Function() _close;
   final void Function() _reload;
 
+  static final reloadButtonKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,6 +25,7 @@ class WeatherScreenButtons extends StatelessWidget {
         ),
         Expanded(
           child: TextButton(
+            key: reloadButtonKey,
             onPressed: _reload,
             child: const Text('Reload'),
           ),
