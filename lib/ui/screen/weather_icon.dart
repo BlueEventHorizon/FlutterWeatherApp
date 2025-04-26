@@ -19,7 +19,10 @@ class WeatherIcon extends ConsumerWidget {
       aspectRatio: 1,
       child: weatherCondition == null
           ? const Placeholder()
-          : SvgPicture.asset('assets/${weatherCondition.name}.svg'),
+          : SvgPicture.asset(
+              'assets/${weatherCondition.name}.svg',
+              semanticsLabel: weatherCondition.name,
+            ),
     );
   }
 }

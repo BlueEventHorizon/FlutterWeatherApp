@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_training/data/api/provider/yumemi_weather_provider.dart';
+import 'package:flutter_training/domain/model/weather_info.dart';
 import 'package:flutter_training/ui/screen/weather_screen.dart';
 import 'package:flutter_training/ui/screen/weather_screen_buttons.dart';
 import 'package:mockito/mockito.dart';
@@ -27,11 +29,16 @@ void main() {
             return mock;
           }),
         ],
-        child: const WeatherScreen(),
+        child: const MaterialApp(home: WeatherScreen()),
       ),
     );
 
     final reloadButtonFinder = find.byKey(WeatherScreenButtons.reloadButtonKey);
     await tester.tap(reloadButtonFinder);
+
+    await tester.pump();
+
+    final iconFinder = find.bySemanticsLabel(WeatherCondition.cloudy.name);
+    expect(iconFinder, findsOneWidget);
   });
 }

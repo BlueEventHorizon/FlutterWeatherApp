@@ -11,6 +11,7 @@ class WeatherScreenButtons extends StatelessWidget {
   final void Function() _close;
   final void Function() _reload;
 
+  @visibleForTesting
   static final reloadButtonKey = UniqueKey();
 
   @override
