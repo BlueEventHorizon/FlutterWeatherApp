@@ -13,7 +13,9 @@ import 'helper/create_container.dart';
 import 'weather_api_test.mocks.dart';
 
 void main() {
-  test('this is test', () {
+  test('''
+        YumemiWeatherがcloudyを返す時、WeatherAPIは、cloudyを返す
+    ''', () {
     final mock = MockYumemiWeather();
 
     final container = createContainer(
@@ -30,7 +32,9 @@ void main() {
     expect(api.fetchWeatherInfo(), 'cloudy');
   });
 
-  test('this is unexpected test', () {
+  test('''
+        YumemiWeatherがInvalidParameterをスローする時、WeatherAPIは、InvalidParameterをスローする
+    ''', () {
     final mock = MockYumemiWeather();
     final container = createContainer(
       overrides: [
@@ -46,7 +50,9 @@ void main() {
     expect(api.fetchWeatherInfo, throwsA(isA<InvalidParameter>()));
   });
 
-  test('this is Unknown test', () {
+  test('''
+        YumemiWeatherがUnknownをスローする時、WeatherAPIは、Unknownをスローする
+    ''', () {
     final mock = MockYumemiWeather();
     final container = createContainer(
       overrides: [
