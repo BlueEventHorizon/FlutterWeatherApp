@@ -11,7 +11,9 @@ import 'helper/create_container.dart';
 import 'weather_repository_test.mocks.dart';
 
 void main() {
-  test('this is test', () {
+  test('''
+        Weather APiがresponseを返す時、WeatherRepositoryは、WeatherInfoを返す
+    ''', () {
     final mock = MockWeatherAPI();
 
     const response = '''
@@ -66,7 +68,9 @@ void main() {
     );
   });
 
-  test('this is Unknown test', () {
+  test('''
+        Weather APiがUnknownをスローする時、WeatherRepositoryは、Unknownをスローする
+    ''', () {
     final mock = MockWeatherAPI();
 
     final container = createContainer(
