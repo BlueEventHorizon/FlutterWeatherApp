@@ -10,7 +10,20 @@ import 'package:mockito/mockito.dart';
 import 'weather_api_test.mocks.dart';
 
 void main() {
+  // 古いやり方です。
+  // fvm flutter runでテストする場合は、こちらじゃないとシミュレータ上の描画サイズが変更されない
+
+  // Future<void> initializeDeviceSurfaceSize() async {
+  //   final binding = TestWidgetsFlutterBinding.ensureInitialized();
+  //   await binding.setSurfaceSize(const Size(1179, 2556)); // iPhone16のサイズ
+
+  //   addTearDown(() => binding.setSurfaceSize(null));
+  // }
+
   testWidgets('何か書き換える', (tester) async {
+    tester.view.physicalSize = const Size(1179, 2556);
+    // await initializeDeviceSurfaceSize();
+
     final mock = MockYumemiWeather();
     const response = '''
     {
@@ -33,12 +46,12 @@ void main() {
       ),
     );
 
-    final reloadButtonFinder = find.byKey(WeatherScreenButtons.reloadButtonKey);
-    await tester.tap(reloadButtonFinder);
+    final reloadButton = find.byKey(WeatherScreenButtons.reloadButtonKey);
+    await tester.tap(reloadButton);
 
     await tester.pump();
 
-    final iconFinder = find.bySemanticsLabel(WeatherCondition.cloudy.name);
-    expect(iconFinder, findsOneWidget);
+    final weatherImage = find.bySemanticsLabel(WeatherCondition.cloudy.name);
+    expect(weatherImage, findsOneWidget);
   });
 }
