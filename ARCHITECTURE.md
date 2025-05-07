@@ -14,7 +14,7 @@ lib/
 │   └── repository/      外部への接続を抽象化し、上位層に機能を提供する
 ├── domain/              
 │   ├── model/           内部で利用する構造体など
-│   ├── exceptio/        例外定義
+│   ├── exception/       例外定義
 ├── ui/
 │   ├── provider/        ui/screenへのプロバイダー
 │   └── screen/          画面実装
