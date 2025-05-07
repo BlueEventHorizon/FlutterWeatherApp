@@ -5,7 +5,6 @@ import 'package:flutter_training/data/api/provider/yumemi_weather_provider.dart'
 import 'package:flutter_training/domain/model/weather_info.dart';
 import 'package:flutter_training/ui/screen/weather_screen.dart';
 import 'package:flutter_training/ui/screen/weather_screen_buttons.dart';
-import 'package:flutter_training/ui/screen/weather_screen_temperature.dart';
 import 'package:mockito/mockito.dart';
 
 import 'weather_api_test.mocks.dart';
