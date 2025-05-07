@@ -12,9 +12,11 @@ lib/
 ├── data/
 │   ├── api/             外部への接続（API）
 │   └── repository/      外部への接続を抽象化し、上位層に機能を提供する
-├── model/               内部で利用する構造体など
-├── UI/
-│   ├── provider/        UI(screen)へのプロバイダー
+├── domain/              
+│   ├── model/           内部で利用する構造体など
+│   ├── exceptio/        例外定義
+├── ui/
+│   ├── provider/        ui/screenへのプロバイダー
 │   └── screen/          画面実装
 │       └── mixin/       画面へ提供するMixIn
 └── main.dart
