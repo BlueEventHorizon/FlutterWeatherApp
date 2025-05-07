@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/ui/provider/weather_info_notifier_provider.dart';
 
-class WeatherScreenTemperature extends StatelessWidget {
+class WeatherScreenTemperature extends ConsumerWidget {
   const WeatherScreenTemperature({
-    required int? maxTemperature,
-    required int? minTemperature,
     super.key,
-  })  : _maxTemperature = maxTemperature,
-        _minTemperature = minTemperature;
-
-  final int? _maxTemperature;
-  final int? _minTemperature;
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final maxTemperature = ref.watch(
+      weatherInfoNotifierProvider
+          .select((weatherInfo) => weatherInfo?.maxTemperature),
+    );
+    final minTemperature = ref.watch(
+      weatherInfoNotifierProvider
+          .select((weatherInfo) => weatherInfo?.minTemperature),
+    );
+
     final labelLarge = Theme.of(context).textTheme.labelLarge;
 
     return Row(
       children: [
         Expanded(
           child: Text(
-            _minTemperature == null ? '** ℃' : '$_minTemperature ℃',
+            minTemperature == null ? '** ℃' : '$minTemperature ℃',
             textAlign: TextAlign.center,
             style: labelLarge?.copyWith(
               color: Colors.blue,
@@ -28,7 +33,7 @@ class WeatherScreenTemperature extends StatelessWidget {
         ),
         Expanded(
           child: Text(
-            _maxTemperature == null ? '** ℃' : '$_maxTemperature ℃',
+            maxTemperature == null ? '** ℃' : '$maxTemperature ℃',
             textAlign: TextAlign.center,
             style: labelLarge?.copyWith(
               color: Colors.red,

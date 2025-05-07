@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_training/domain/model/weather_info.dart';
+import 'package:flutter_training/ui/provider/weather_info_notifier_provider.dart';
 
-class WeatherIcon extends StatelessWidget {
+class WeatherIcon extends ConsumerWidget {
   const WeatherIcon({
-    required WeatherCondition? condition,
     super.key,
-  }) : _condition = condition;
-
-  final WeatherCondition? _condition;
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final weatherCondition = ref.watch(
+      weatherInfoNotifierProvider
+          .select((weatherInfo) => weatherInfo?.weatherCondition),
+    );
+
     return AspectRatio(
       aspectRatio: 1,
-      child: _condition == null
+      child: weatherCondition == null
           ? const Placeholder()
-          : SvgPicture.asset('assets/${_condition.name}.svg'),
+          : SvgPicture.asset('assets/${weatherCondition.name}.svg'),
     );
   }
 }

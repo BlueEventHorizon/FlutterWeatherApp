@@ -14,16 +14,6 @@ class WeatherScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final weatherCondition = ref.watch(
-      weatherInfoNotifierProvider.select((it) => it?.weatherCondition),
-    );
-    final maxTemperature = ref.watch(
-      weatherInfoNotifierProvider.select((it) => it?.maxTemperature),
-    );
-    final minTemperature = ref.watch(
-      weatherInfoNotifierProvider.select((it) => it?.minTemperature),
-    );
-
     return Scaffold(
       body: Center(
         child: FractionallySizedBox(
@@ -31,12 +21,9 @@ class WeatherScreen extends ConsumerWidget {
           child: Column(
             children: [
               const Spacer(),
-              WeatherIcon(condition: weatherCondition),
+              const WeatherIcon(),
               const SizedBox(height: 16),
-              WeatherScreenTemperature(
-                maxTemperature: maxTemperature,
-                minTemperature: minTemperature,
-              ),
+              const WeatherScreenTemperature(),
               const SizedBox(height: 16),
               Expanded(
                 child: Column(
