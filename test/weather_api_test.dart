@@ -28,9 +28,18 @@ void main() {
 
     final api = container.read(weatherAPIProvider);
 
+    const response = '''
+    {
+      "weather_condition": "cloudy",
+      "max_temperature": 25,
+      "min_temperature": 7,
+      "date": "2020-04-01T12:00:00+09:00"
+    }
+    ''';
+
     // TODO: JSONで比較すること
-    when(mock.fetchWeather(any)).thenReturn('cloudy');
-    expect(api.fetchWeatherInfo(), 'cloudy');
+    when(mock.fetchWeather(any)).thenReturn(response);
+    expect(api.fetchWeatherInfo(), response);
   });
 
   test('''
