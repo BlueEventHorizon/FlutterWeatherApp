@@ -28,6 +28,7 @@ void main() {
 
     final api = container.read(weatherAPIProvider);
 
+    // TODO: JSONで比較すること
     when(mock.fetchWeather(any)).thenReturn('cloudy');
     expect(api.fetchWeatherInfo(), 'cloudy');
   });
