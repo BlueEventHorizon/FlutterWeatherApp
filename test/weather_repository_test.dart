@@ -12,7 +12,7 @@ import 'weather_repository_test.mocks.dart';
 
 void main() {
   test('''
-        Weather APiがresponseを返す時、WeatherRepositoryは、WeatherInfoを返す
+        Weather APIがresponseを返す時、WeatherRepositoryは、WeatherInfoを返す
     ''', () {
     final mock = MockWeatherAPI();
 
@@ -47,7 +47,7 @@ void main() {
   });
 
   test('''
-        Weather APiがInvalidParameterをスローする時、WeatherRepositoryは、InvalidParameterをスローする
+        Weather APIがInvalidParameterをスローする時、WeatherRepositoryは、InvalidParameterをスローする
     ''', () {
     final mock = MockWeatherAPI();
 
@@ -69,7 +69,7 @@ void main() {
   });
 
   test('''
-        Weather APiがUnknownをスローする時、WeatherRepositoryは、Unknownをスローする
+        Weather APIがUnknownをスローする時、WeatherRepositoryは、Unknownをスローする
     ''', () {
     final mock = MockWeatherAPI();
 
