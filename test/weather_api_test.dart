@@ -37,7 +37,6 @@ void main() {
     }
     ''';
 
-    // TODO: JSONで比較すること
     when(mock.fetchWeather(any)).thenReturn(response);
     expect(api.fetchWeatherInfo(), response);
   });
