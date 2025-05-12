@@ -46,12 +46,14 @@ void main() {
         ],
       );
 
+      const weatherForTest = WeatherInfo(
+        maxTemperature: 25,
+        minTemperature: 7,
+        weatherCondition: WeatherCondition.cloudy,
+      );
+
       when(mock.getWeatherInfo()).thenReturn(
-        const WeatherInfo(
-          maxTemperature: 25,
-          minTemperature: 7,
-          weatherCondition: WeatherCondition.cloudy,
-        ),
+        weatherForTest,
       );
 
       // fetchメソッドを実行
@@ -61,11 +63,7 @@ void main() {
 
       expect(
         weatherInfo,
-        const WeatherInfo(
-          maxTemperature: 25,
-          minTemperature: 7,
-          weatherCondition: WeatherCondition.cloudy,
-        ),
+        weatherForTest,
       );
     },
   );
