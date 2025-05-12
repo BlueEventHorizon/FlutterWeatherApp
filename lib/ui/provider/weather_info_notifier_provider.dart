@@ -12,8 +12,10 @@ class WeatherInfoNotifier extends _$WeatherInfoNotifier {
     return null;
   }
 
+  // 関数があるProvideerは、Notifierを付ける
   void fetch({String area = 'tokyo', DateTime? dateTime}) {
     final repository = ref.read(weatherRepositoryProvider);
+
     state = repository.getWeatherInfo(
       area: area,
       dateTime: dateTime,

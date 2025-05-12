@@ -11,6 +11,7 @@ class WeatherIcon extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weatherCondition = ref.watch(
+      // weatherConditionだけをwatchする
       weatherInfoNotifierProvider
           .select((weatherInfo) => weatherInfo?.weatherCondition),
     );
