@@ -65,6 +65,8 @@ void main() {
 
     final minTemperatureTextFinder = find.text('7 ℃');
     expect(minTemperatureTextFinder, findsOneWidget);
+
+    tester.view.resetPhysicalSize();
   });
 
   for (final condition in WeatherCondition.values) {
@@ -74,13 +76,13 @@ void main() {
       tester.view.physicalSize = const Size(1179, 2556);
 
       final response = '''
-    {
-      "weather_condition": "${condition.name}",
-      "max_temperature": 25,
-      "min_temperature": 7,
-      "date": "2020-04-01T12:00:00+09:00"
-    }
-    ''';
+      {
+        "weather_condition": "${condition.name}",
+        "max_temperature": 25,
+        "min_temperature": 7,
+        "date": "2020-04-01T12:00:00+09:00"
+      }
+      ''';
 
       final mock = MockYumemiWeather();
 
@@ -108,6 +110,8 @@ void main() {
       final weatherImage = find.bySemanticsLabel(condition.name);
       // 画面上に要素が一つだけ存在することを期待
       expect(weatherImage, findsOneWidget);
+
+      tester.view.resetPhysicalSize();
     });
   }
 
@@ -144,5 +148,7 @@ void main() {
 
     final alertMessage = find.text(const InvalidParameter().message);
     expect(alertMessage, findsOneWidget);
+
+    tester.view.resetPhysicalSize();
   });
 }
