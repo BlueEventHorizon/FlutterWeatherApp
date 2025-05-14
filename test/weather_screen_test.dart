@@ -24,6 +24,9 @@ void main() {
 
   testWidgets('reload ボタン押下で cloudyの画像、最低気温、最高気温のラベル表示がされること', (tester) async {
     tester.view.physicalSize = const Size(1179, 2556);
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+    });
     // await initializeDeviceSurfaceSize();
 
     final mock = MockYumemiWeather();
@@ -65,8 +68,6 @@ void main() {
 
     final minTemperatureTextFinder = find.text('7 ℃');
     expect(minTemperatureTextFinder, findsOneWidget);
-
-    tester.view.resetPhysicalSize();
   });
 
   for (final condition in WeatherCondition.values) {
@@ -74,6 +75,9 @@ void main() {
         'reload ボタン押下でレスポンスが${condition.name}の時、${condition.name}の画像が表示されること',
         (tester) async {
       tester.view.physicalSize = const Size(1179, 2556);
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+      });
 
       final response = '''
       {
@@ -110,13 +114,14 @@ void main() {
       final weatherImage = find.bySemanticsLabel(condition.name);
       // 画面上に要素が一つだけ存在することを期待
       expect(weatherImage, findsOneWidget);
-
-      tester.view.resetPhysicalSize();
     });
   }
 
   testWidgets('天気予報画面にダイアログが表示され、メッセージが表示されること', (tester) async {
     tester.view.physicalSize = const Size(1179, 2556);
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+    });
     // await initializeDeviceSurfaceSize();
 
     final mock = MockYumemiWeather();
@@ -148,7 +153,5 @@ void main() {
 
     final alertMessage = find.text(const InvalidParameter().message);
     expect(alertMessage, findsOneWidget);
-
-    tester.view.resetPhysicalSize();
   });
 }
