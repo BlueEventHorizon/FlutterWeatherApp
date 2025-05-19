@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/data/api/provider/yumemi_weather_provider.dart';
 import 'package:flutter_training/domain/exception/app_exception.dart';
@@ -20,13 +21,16 @@ class WeatherAPI {
 
   final YumemiWeather _yumemiWeather;
 
-  String fetchWeatherInfo({String area = 'tokyo', DateTime? dateTime}) {
+  Future<String> fetchWeatherInfo({
+    String area = 'tokyo',
+    DateTime? dateTime,
+  }) async {
     final dateTimeLocal = dateTime ?? DateTime.now();
 
     final request = jsonEncode(toJson((area: area, dateTime: dateTimeLocal)));
 
     try {
-      return _yumemiWeather.fetchWeather(request);
+      return await compute(_yumemiWeather.syncFetchWeather, request);
     } on YumemiWeatherError catch (error) {
       switch (error) {
         case YumemiWeatherError.invalidParameter:

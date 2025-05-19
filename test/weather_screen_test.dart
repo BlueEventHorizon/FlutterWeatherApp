@@ -56,7 +56,9 @@ void main() {
     await tester.tap(reloadButton);
 
     // 再描画
-    await tester.pump();
+    //await tester.pump();
+
+    await tester.pumpAndSettle();
 
     // cloudyの名前のラベルを持つウィジェットを検索
     final weatherImage = find.bySemanticsLabel(WeatherCondition.cloudy.name);

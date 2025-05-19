@@ -22,8 +22,10 @@ class WeatherRepository {
 
   final WeatherAPI _weatherAPI;
 
-  WeatherInfo getWeatherInfo({String area = 'tokyo', DateTime? dateTime}) {
-    final json = _weatherAPI.fetchWeatherInfo(area: area, dateTime: dateTime);
+  Future<WeatherInfo> getWeatherInfo(
+      {String area = 'tokyo', DateTime? dateTime}) async {
+    final json =
+        await _weatherAPI.fetchWeatherInfo(area: area, dateTime: dateTime);
 
     final weatherInfo = jsonDecode(json) as Map<String, dynamic>;
 
