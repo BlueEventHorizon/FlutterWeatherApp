@@ -7,8 +7,8 @@ Future<T> performTaskWithLoadingIndicator<T>({
 }) async {
   // オーバーレイエントリを作成
   final overlayEntry = OverlayEntry(
-    builder: (context) => Container(
-      color: Colors.black.withOpacity(0.3),
+    builder: (context) => ColoredBox(
+      color: Colors.black.withAlpha(80),
       child: const Center(
         child: CircularProgressIndicator(),
       ),
