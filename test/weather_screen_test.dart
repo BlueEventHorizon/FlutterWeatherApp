@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_training/data/api/provider/yumemi_weather_provider.dart';
+
+import 'package:flutter_training/data/api/weather_api.dart';
 import 'package:flutter_training/domain/exception/app_exception.dart';
 import 'package:flutter_training/domain/model/weather_info.dart';
 import 'package:flutter_training/ui/screen/weather_screen.dart';
 import 'package:flutter_training/ui/screen/weather_screen_buttons.dart';
 import 'package:mockito/mockito.dart';
-import 'package:yumemi_weather/yumemi_weather.dart';
 
-import 'weather_api_test.mocks.dart';
+import 'weather_repository_test.mocks.dart';
 
 void main() {
   // initializeDeviceSurfaceSize()は、古いやり方です。
   // fvm flutter runでテストする場合は、こちらじゃないとシミュレータ上の描画サイズが変更されない
 
-  // Future<void> initializeDeviceSurfaceSize() async {
-  //   final binding = TestWidgetsFlutterBinding.ensureInitialized();
-  //   await binding.setSurfaceSize(const Size(1179, 2556)); // iPhone16のサイズ
+/*
+  Future<void> initializeDeviceSurfaceSize() async {
+    final binding = TestWidgetsFlutterBinding.ensureInitialized();
+    await binding.setSurfaceSize(const Size(1179, 2556)); // iPhone16のサイズ
 
-  //   addTearDown(() => binding.setSurfaceSize(null));
-  // }
+    addTearDown(() => binding.setSurfaceSize(null));
+  }
+*/
+
+// ⚠️ 別isolateを実行するMockは、テスト環境で動作しません！！！！
+// そのためWeatherAPIをMockしています。
 
   testWidgets('reload ボタン押下で cloudyの画像、最低気温、最高気温のラベル表示がされること', (tester) async {
     tester.view.physicalSize = const Size(1179, 2556);
@@ -29,7 +34,7 @@ void main() {
     });
     // await initializeDeviceSurfaceSize();
 
-    final mock = MockYumemiWeather();
+    final mock = MockWeatherAPI();
     const response = '''
     {
       "weather_condition": "cloudy",
@@ -38,12 +43,12 @@ void main() {
       "date": "2020-04-01T12:00:00+09:00"
     }
     ''';
-    when(mock.fetchWeather(any)).thenReturn(response);
+    when(mock.fetchWeatherInfo()).thenAnswer((_) async => response);
 
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          yumemiWeatherProvider.overrideWith((ref) {
+          weatherAPIProvider.overrideWith((ref) {
             return mock;
           }),
         ],
@@ -56,9 +61,7 @@ void main() {
     await tester.tap(reloadButton);
 
     // 再描画
-    //await tester.pump();
-
-    await tester.pumpAndSettle();
+    await tester.pump();
 
     // cloudyの名前のラベルを持つウィジェットを検索
     final weatherImage = find.bySemanticsLabel(WeatherCondition.cloudy.name);
@@ -90,14 +93,14 @@ void main() {
       }
       ''';
 
-      final mock = MockYumemiWeather();
+      final mock = MockWeatherAPI();
 
-      when(mock.fetchWeather(any)).thenReturn(response);
+      when(mock.fetchWeatherInfo()).thenAnswer((_) async => response);
 
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            yumemiWeatherProvider.overrideWith((ref) {
+            weatherAPIProvider.overrideWith((ref) {
               return mock;
             }),
           ],
@@ -126,14 +129,14 @@ void main() {
     });
     // await initializeDeviceSurfaceSize();
 
-    final mock = MockYumemiWeather();
+    final mock = MockWeatherAPI();
 
-    when(mock.fetchWeather(any)).thenThrow(YumemiWeatherError.invalidParameter);
+    when(mock.fetchWeatherInfo()).thenThrow(const InvalidParameter());
 
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          yumemiWeatherProvider.overrideWith((ref) {
+          weatherAPIProvider.overrideWith((ref) {
             return mock;
           }),
         ],
