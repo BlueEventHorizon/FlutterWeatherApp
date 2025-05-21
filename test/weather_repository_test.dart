@@ -13,7 +13,7 @@ import 'weather_repository_test.mocks.dart';
 void main() {
   test('''
         Weather APIがresponseを返す時、WeatherRepositoryは、WeatherInfoを返す
-    ''', () {
+    ''', () async {
     final mock = MockWeatherAPI();
 
     const response = '''
@@ -35,9 +35,9 @@ void main() {
 
     final repository = container.read(weatherRepositoryProvider);
 
-    when(mock.fetchWeatherInfo()).thenReturn(response);
+    when(mock.fetchWeatherInfo()).thenAnswer((_) async => response);
     expect(
-      repository.getWeatherInfo(),
+      await repository.getWeatherInfo(),
       const WeatherInfo(
         maxTemperature: 25,
         minTemperature: 7,
@@ -48,7 +48,7 @@ void main() {
 
   test('''
         Weather APIがInvalidParameterをスローする時、WeatherRepositoryは、InvalidParameterをスローする
-    ''', () {
+    ''', () async {
     final mock = MockWeatherAPI();
 
     final container = createContainer(
@@ -70,7 +70,7 @@ void main() {
 
   test('''
         Weather APIがUnknownをスローする時、WeatherRepositoryは、Unknownをスローする
-    ''', () {
+    ''', () async {
     final mock = MockWeatherAPI();
 
     final container = createContainer(

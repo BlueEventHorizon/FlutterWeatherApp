@@ -3,6 +3,8 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i4;
+
 import 'package:flutter_training/data/repository/weather_repository.dart'
     as _i3;
 import 'package:flutter_training/domain/model/weather_info.dart' as _i2;
@@ -32,7 +34,7 @@ class _FakeWeatherInfo_0 extends _i1.SmartFake implements _i2.WeatherInfo {
 /// See the documentation for Mockito's code generation for more information.
 class MockWeatherRepository extends _i1.Mock implements _i3.WeatherRepository {
   @override
-  _i2.WeatherInfo getWeatherInfo({
+  _i4.Future<_i2.WeatherInfo> getWeatherInfo({
     String? area = 'tokyo',
     DateTime? dateTime,
   }) =>
@@ -41,20 +43,24 @@ class MockWeatherRepository extends _i1.Mock implements _i3.WeatherRepository {
               #area: area,
               #dateTime: dateTime,
             }),
-            returnValue: _FakeWeatherInfo_0(
-              this,
-              Invocation.method(#getWeatherInfo, [], {
-                #area: area,
-                #dateTime: dateTime,
-              }),
+            returnValue: _i4.Future<_i2.WeatherInfo>.value(
+              _FakeWeatherInfo_0(
+                this,
+                Invocation.method(#getWeatherInfo, [], {
+                  #area: area,
+                  #dateTime: dateTime,
+                }),
+              ),
             ),
-            returnValueForMissingStub: _FakeWeatherInfo_0(
-              this,
-              Invocation.method(#getWeatherInfo, [], {
-                #area: area,
-                #dateTime: dateTime,
-              }),
+            returnValueForMissingStub: _i4.Future<_i2.WeatherInfo>.value(
+              _FakeWeatherInfo_0(
+                this,
+                Invocation.method(#getWeatherInfo, [], {
+                  #area: area,
+                  #dateTime: dateTime,
+                }),
+              ),
             ),
           )
-          as _i2.WeatherInfo);
+          as _i4.Future<_i2.WeatherInfo>);
 }

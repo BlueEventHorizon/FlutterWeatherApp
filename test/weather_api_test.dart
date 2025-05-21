@@ -15,7 +15,7 @@ import 'weather_api_test.mocks.dart';
 void main() {
   test('''
         YumemiWeatherがcloudyを返す時、WeatherAPIは、cloudyを返す
-    ''', () {
+    ''', () async {
     final mock = MockYumemiWeather();
 
     final container = createContainer(
@@ -37,8 +37,8 @@ void main() {
     }
     ''';
 
-    when(mock.fetchWeather(any)).thenReturn(response);
-    expect(api.fetchWeatherInfo(), response);
+    when(mock.syncFetchWeather(any)).thenReturn(response);
+    expect(await api.fetchWeatherInfo(), response);
   });
 
   test('''
@@ -55,7 +55,8 @@ void main() {
 
     final api = container.read(weatherAPIProvider);
 
-    when(mock.fetchWeather(any)).thenThrow(YumemiWeatherError.invalidParameter);
+    when(mock.syncFetchWeather(any))
+        .thenThrow(YumemiWeatherError.invalidParameter);
     expect(api.fetchWeatherInfo, throwsA(isA<InvalidParameter>()));
   });
 
@@ -73,7 +74,7 @@ void main() {
 
     final api = container.read(weatherAPIProvider);
 
-    when(mock.fetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
+    when(mock.syncFetchWeather(any)).thenThrow(YumemiWeatherError.unknown);
     expect(api.fetchWeatherInfo, throwsA(isA<Unknown>()));
   });
 }

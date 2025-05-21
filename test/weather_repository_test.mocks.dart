@@ -3,9 +3,11 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i3;
+
 import 'package:flutter_training/data/api/weather_api.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i3;
+import 'package:mockito/src/dummies.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -26,28 +28,35 @@ import 'package:mockito/src/dummies.dart' as _i3;
 /// See the documentation for Mockito's code generation for more information.
 class MockWeatherAPI extends _i1.Mock implements _i2.WeatherAPI {
   @override
-  String fetchWeatherInfo({String? area = 'tokyo', DateTime? dateTime}) =>
+  _i3.Future<String> fetchWeatherInfo({
+    String? area = 'tokyo',
+    DateTime? dateTime,
+  }) =>
       (super.noSuchMethod(
             Invocation.method(#fetchWeatherInfo, [], {
               #area: area,
               #dateTime: dateTime,
             }),
-            returnValue: _i3.dummyValue<String>(
-              this,
-              Invocation.method(#fetchWeatherInfo, [], {
-                #area: area,
-                #dateTime: dateTime,
-              }),
+            returnValue: _i3.Future<String>.value(
+              _i4.dummyValue<String>(
+                this,
+                Invocation.method(#fetchWeatherInfo, [], {
+                  #area: area,
+                  #dateTime: dateTime,
+                }),
+              ),
             ),
-            returnValueForMissingStub: _i3.dummyValue<String>(
-              this,
-              Invocation.method(#fetchWeatherInfo, [], {
-                #area: area,
-                #dateTime: dateTime,
-              }),
+            returnValueForMissingStub: _i3.Future<String>.value(
+              _i4.dummyValue<String>(
+                this,
+                Invocation.method(#fetchWeatherInfo, [], {
+                  #area: area,
+                  #dateTime: dateTime,
+                }),
+              ),
             ),
           )
-          as String);
+          as _i3.Future<String>);
 
   @override
   Map<String, String> toJson(({String area, DateTime dateTime})? value) =>

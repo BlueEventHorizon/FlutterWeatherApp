@@ -8,6 +8,7 @@ import 'package:flutter_training/ui/provider/weather_info_notifier_provider.dart
 import 'package:flutter_training/ui/screen/weather_icon.dart';
 import 'package:flutter_training/ui/screen/weather_screen_buttons.dart';
 import 'package:flutter_training/ui/screen/weather_screen_temperature.dart';
+import 'package:flutter_training/ui/utils/async_task_indicator.dart';
 
 class WeatherScreen extends ConsumerWidget {
   const WeatherScreen({super.key});
@@ -33,13 +34,18 @@ class WeatherScreen extends ConsumerWidget {
                       close: () {
                         Navigator.pop(context);
                       },
-                      reload: () {
+                      reload: () async {
                         try {
-                          ref
-                              .read(weatherInfoNotifierProvider.notifier)
-                              .fetch();
+                          await performTaskWithLoadingIndicator(
+                            context: context,
+                            task: () => ref
+                                .read(weatherInfoNotifierProvider.notifier)
+                                .fetch(),
+                          );
                         } on AppException catch (error) {
-                          unawaited(_showErrorDialog(context, error.message));
+                          if (context.mounted) {
+                            unawaited(_showErrorDialog(context, error.message));
+                          }
                         }
                       },
                     ),
