@@ -12,7 +12,7 @@ class WeatherInfoNotifier extends _$WeatherInfoNotifier {
     return null;
   }
 
-  // 関数があるProvideerは、Notifierを付ける
+  // 関数があるProviderは、Notifierを付ける
   Future<void> fetch({String area = 'tokyo', DateTime? dateTime}) async {
     final repository = ref.read(weatherRepositoryProvider);
 
