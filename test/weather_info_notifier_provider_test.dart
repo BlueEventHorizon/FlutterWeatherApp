@@ -35,7 +35,7 @@ void main() {
     '''
        WeatherRepositoryが、「cloudyその他」を返す時、weatherInfoが「cloudyその他」になっていること
     ''',
-    () {
+    () async {
       final mock = MockWeatherRepository();
 
       final container = createContainer(
@@ -52,12 +52,12 @@ void main() {
         weatherCondition: WeatherCondition.cloudy,
       );
 
-      when(mock.getWeatherInfo()).thenReturn(
-        weatherForTest,
+      when(mock.getWeatherInfo()).thenAnswer(
+        (_) async => weatherForTest,
       );
 
       // fetchメソッドを実行
-      container.read(weatherInfoNotifierProvider.notifier).fetch();
+      await container.read(weatherInfoNotifierProvider.notifier).fetch();
 
       final weatherInfo = container.read(weatherInfoNotifierProvider);
 
